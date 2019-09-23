@@ -20,7 +20,6 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include "usart.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
@@ -58,35 +57,7 @@ void SystemClock_Config(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
-#include "cmsis_os.h"
-//task1
-#define TASK1_STK_SIZE		512
-void task1(void *pdata);
-osThreadDef(task1, osPriorityNormal, 1, TASK1_STK_SIZE);
-
-//task2
-#define TASK2_STK_SIZE		512
-void task2(void *pdata);
-osThreadDef(task2, osPriorityNormal, 1, TASK2_STK_SIZE);
-
-void task1(void *pdata)
-{
-  int count = 1;
-
-  while(1)
-  {
-    osDelay(2000);
-  }
-}
-void task2(void *pdata)
-{
-  int count = 1;
-
-  while(1)
-  {
-    osDelay(1000);
-  }
-}
+#include "apps.h"
 /* USER CODE END 0 */
 
 /**
@@ -118,12 +89,8 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-  osKernelInitialize(); //TOS Tiny kernel initialize
-  osThreadCreate(osThread(task1), NULL);// Create task1
-  osThreadCreate(osThread(task2), NULL);// Create task2
-  osKernelStart();//Start TOS Tiny
+  start_apps();
   /* USER CODE END 2 */
 
   /* Infinite loop */
