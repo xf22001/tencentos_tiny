@@ -1,0 +1,19 @@
+file build/tencentos_tiny.elf
+target remote :2331
+set pagination off
+set print pretty on
+break main
+break /home/xiaofei/media/work/tencentos_tiny/Src/main.c:78
+  commands
+    printf "task1 called per 2000 ms"
+    c
+  end
+break /home/xiaofei/media/work/tencentos_tiny/Src/main.c:87
+  commands
+    printf "task2 called per 1000 ms"
+    c
+  end
+layout src
+monitor reset
+continue
+

@@ -58,6 +58,35 @@ void SystemClock_Config(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
+#include "cmsis_os.h"
+//task1
+#define TASK1_STK_SIZE		512
+void task1(void *pdata);
+osThreadDef(task1, osPriorityNormal, 1, TASK1_STK_SIZE);
+
+//task2
+#define TASK2_STK_SIZE		512
+void task2(void *pdata);
+osThreadDef(task2, osPriorityNormal, 1, TASK2_STK_SIZE);
+
+void task1(void *pdata)
+{
+  int count = 1;
+
+  while(1)
+  {
+    osDelay(2000);
+  }
+}
+void task2(void *pdata)
+{
+  int count = 1;
+
+  while(1)
+  {
+    osDelay(1000);
+  }
+}
 /* USER CODE END 0 */
 
 /**
@@ -91,7 +120,10 @@ int main(void)
   MX_GPIO_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-
+  osKernelInitialize(); //TOS Tiny kernel initialize
+  osThreadCreate(osThread(task1), NULL);// Create task1
+  osThreadCreate(osThread(task2), NULL);// Create task2
+  osKernelStart();//Start TOS Tiny
   /* USER CODE END 2 */
 
   /* Infinite loop */
