@@ -3,12 +3,12 @@ target remote :2331
 set pagination off
 set print pretty on
 break main
-break /home/xiaofei/media/work/tencentos_tiny/Src/main.c:78
+break /home/xiaofei/media/work/tencentos_tiny/apps/test_task.c:22
   commands
     printf "task1 called per 2000 ms"
     c
   end
-break /home/xiaofei/media/work/tencentos_tiny/Src/main.c:87
+break /home/xiaofei/media/work/tencentos_tiny/apps/test_task.c:30
   commands
     printf "task2 called per 1000 ms"
     c
